@@ -6,7 +6,7 @@ inputs:
     required: false
     default: 'terraform'
 outputs:
-  tfsec-output:
+  tfsec-result:
     description: "tfsec output"
     value: ${{ steps.tfsec.outputs.tfsec_result }}
 runs:
@@ -14,7 +14,7 @@ runs:
   steps:
     - run: echo Using tfsec to scan ${{ inputs.terraform-directory }}.
       shell: bash
-    - run: cp -r ./${{ inputs.terraform-directoy }} ${{ github.action_path }}/tfsec-run
+    - run: cp -r ./${{ inputs.terraform-directory }} ${{ github.action_path }}/tfsec-run
       shell: bash
     - run: cp -r ${{ github.action_path }}/.tfsec ${{ github.action_path }}/tfsec-run/.tfsec
       shell: bash

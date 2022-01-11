@@ -33,3 +33,4 @@ runs:
         echo $tfsec_result
         echo "::set-output name=tfsec_result::$tfsec_result"
     - run: echo goodbye :\)
+      shell: bash

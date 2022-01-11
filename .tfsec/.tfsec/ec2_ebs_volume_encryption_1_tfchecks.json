@@ -1,0 +1,23 @@
+{
+  "checks": [
+    {
+      "code": "cus-ebs-volume-encryption-1",
+      "description": "Custom check to ensure EBS volume encryption is enabled",
+      "resolution": "Enable EBS volume encryption",
+      "requiredTypes": [
+        "data"
+      ],
+      "requiredLabels": [
+        "aws_ebs_volume"
+      ],
+      "severity": "Medium",
+      "matchSpec": {
+        "name": "encrypted",
+        "action": "equals",
+        "value": true
+      },
+      "errorMessage": "EBS volume encryption is disabled",
+      "relatedLinks": []
+    }
+  ]
+}

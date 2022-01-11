@@ -1,0 +1,36 @@
+{
+  "checks": [
+    {
+      "code": "cus-ebs-volume-encryption-2",
+      "description": "Custom check to ensure EBS volume encryption is enabled",
+      "resolution": "Enable EBS volume encryption",
+      "requiredTypes": [
+        "resource"
+      ],
+      "requiredLabels": [
+        "aws_instance"
+      ],
+      "severity": "Medium",
+      "matchSpec": {
+        "action": "or",
+        "predicateMatchSpec": [
+          {
+            "name": "ebs_block_device",
+            "action": "isPresent",
+            "subMatch": {
+              "name": "encrypted",
+              "action": "equals",
+              "value": true
+            }
+          },
+          {
+            "name": "ebs_block_device",
+            "action": "notPresent"
+          }
+        ]
+      },
+      "errorMessage": "EBS volume encryption is disabled",
+      "relatedLinks": []
+    }
+  ]
+}

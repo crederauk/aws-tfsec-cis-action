@@ -1,0 +1,35 @@
+name: 'Run tfsec with CIS AWS custom policies'
+description: 'Runs tfsec with additional custom rules to enforce CIS AWS benchmark policies'
+inputs:
+  terraform-directory:
+    description: 'Relative path to the terraform code directory'
+    required: false
+    default: 'terraform'
+outputs:
+  tfsec-output:
+    description: "tfsec output"
+    value: ${{ steps.tfsec.outputs.tfsec_result }}
+runs:
+  using: "composite"
+  steps:
+    - run: echo Using tfsec to scan ${{ inputs.terraform-directory }}.
+      shell: bash
+    - run: cp -r ./${{ inputs.terraform-directoy }} ${{ github.action_path }}/tfsec-run
+      shell: bash
+    - run: cp -r ${{ github.action_path }}/.tfsec ${{ github.action_path }}/tfsec-run/.tfsec
+      shell: bash
+    - name: Run tfsec
+      id: tfsec
+      shell: bash
+      working-directory: ${{ github.action_path }}/tfsec-run
+      run: |
+        tfsec_result="$(docker run --rm -v "$(pwd):/src" aquasec/tfsec --soft-fail --no-colour /src)"
+        tfsec_result="${tfsec_result//'%'/'%25'}"
+        tfsec_result="${tfsec_result//$'\n'/'%0A'}"
+        tfsec_result="${tfsec_result//$'\r'/'%0D'}"
+        tfsec_result="${tfsec_result//'`'/'%60'}"
+        tfsec_result="${tfsec_result//'{'/'%7B'}"
+        tfsec_result="${tfsec_result//'}'/'%7D'}"
+        echo $tfsec_result
+        echo "::set-output name=tfsec_result::$tfsec_result"
+    - run: echo goodbye :\)

@@ -1,0 +1,22 @@
+{
+  "checks": [
+    {
+      "code": "cus-cloudwatch-cloudtrail-integration",
+      "description": "Custom check to ensure CloudTrail trails are integrated with CloudWatch Logs",
+      "resolution": "Ensure CloudTrail trails are integrated with CloudWatch Logs",
+      "requiredTypes": [
+        "resource"
+      ],
+      "requiredLabels": [
+        "aws_cloudtrail"
+      ],
+      "severity": "Medium",
+      "matchSpec": {
+        "name": "cloud_watch_logs_group_arn",
+        "action": "isPresent"
+      },
+      "errorMessage": "CloudTrail trails are not integrated with CloudWatch Logs",
+      "relatedLinks": []
+    }
+  ]
+}

@@ -10,7 +10,7 @@ A custom GitHub action composite action that takes in directory of terraform cod
 
 ## Example
 In your GitHub action pipeline, add the following steps:
-```json
+```yaml
 - id: aws-tfsec-cis-action
   uses: crederauk/aws-tfsec-cis-action@v5
   with:

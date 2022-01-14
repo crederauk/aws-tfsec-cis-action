@@ -1,6 +1,6 @@
-# aws-tfsec-cis-action
+# tfsec-custom-action
 
-A custom GitHub Actions composite action that takes in directory of Terraform code and runs tfsec on it, along with 4 custom checks added to tfsec, to adhere with CIS AWS Benchmark guidelines.
+A custom GitHub Actions composite action that takes in directory of Terraform code and runs tfsec on it, along with several custom checks added to tfsec, to adhere with CIS AWS Benchmark guidelines, and other policies.
 
 ## Input
 - `terraform-directory`: (optional) the directory to look for Terraform code to scan, relative to the working directory this action is run in, leave empty to scan current directory, defaults to `terraform`

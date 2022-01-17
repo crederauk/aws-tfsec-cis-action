@@ -21,3 +21,7 @@ In your GitHub Actions pipeline, add the following steps:
     ${{ steps.aws-tfsec-cis-action.outputs.tfsec-result }}
     END
 ```
+
+## Contributing
+
+`go test ./test [-v]` to validate custom checks against examples

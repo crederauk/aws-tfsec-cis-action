@@ -1,0 +1,23 @@
+{
+    "checks": [
+      {
+        "code": "cus-bigquery-dataset-encryption",
+        "description": "Custom check to ensure BigQuery datasets are encrypted with customer-managed encryption key",
+        "resolution": "Specify default_encryption_configuration for BigQuery dataset",
+        "requiredTypes": [
+          "resource"
+        ],
+        "requiredLabels": [
+          "google_bigquery_dataset"
+        ],
+        "severity": "Medium",
+        "matchSpec": {
+          "name": "default_encryption_configuration",
+          "action": "isPresent"
+        },
+        "errorMessage": "default_encryption_configuration not found for BigQuery dataset",
+        "relatedLinks": []
+      }
+    ]   
+  }
+  

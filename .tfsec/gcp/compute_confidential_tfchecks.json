@@ -1,0 +1,43 @@
+{
+    "checks": [
+      {
+        "code": "cus-compute-confidential",
+        "description": "Custom check to ensure GCP compute instances (n2d-typed) has confidential compute enabled",
+        "resolution": "Enable confidential compute for n2d-typed compute instances",
+        "requiredTypes": [
+          "resource"
+        ],
+        "requiredLabels": [
+          "google_compute_instance"
+        ],
+        "severity": "Medium",
+        "matchSpec": {
+          "action": "or",
+          "predicateMatchSpec": [
+            {
+              "action": "not",
+              "predicateMatchSpec": [
+                {
+                  "name": "machine_type",
+                  "action": "startsWith",
+                  "value": "n2d-"
+                }
+              ]
+            },
+            {
+              "name": "confidential_instance_config",
+              "action": "isPresent",
+              "subMatch": {
+                "name": "enable_confidential_compute",
+                "action": "equals",
+                "value": true
+              }
+            }
+          ]
+        },
+        "errorMessage": "Confidential compute is required for n2d-typed compute instances",
+        "relatedLinks": []
+      }
+    ]   
+  }
+  

@@ -1,0 +1,28 @@
+{
+  "checks": [
+    {
+      "code": "resource-lock-admin",
+      "description": "Custom check to ensure a custom role is assigned permissions for administering resource locks",
+      "impact": "By adding this role you can have specific permissions granted for managing just resource locks rather than needing to provide the wide owner or contributor role, reducing the risk of the user being able to do unintentional damage.",
+      "resolution": "Create a custom resource lock admin role",
+      "requiredTypes": [
+        "resource"
+      ],
+      "requiredLabels": [
+        "azurerm_role_definition"
+      ],
+      "severity": "medium",
+      "matchSpec": {
+        "name": "permissions",
+        "action": "isPresent",
+        "submatch": {
+          "name": "actions",
+          "action": "contains",
+          "value": "Microsoft.Authorization/locks"
+        }
+      },
+      "errorMessage": "No custom resource lock admin role has been created via Terraform. (This role may have been created in the console.)",
+      "relatedLinks": []
+    }
+  ]
+}

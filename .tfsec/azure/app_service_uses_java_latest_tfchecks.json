@@ -1,0 +1,44 @@
+{
+  "checks": [
+    {
+      "code": "cus-appservice-java-latest",
+      "description": "Custom check to ensure that Java version is the latest, if used to run the Web App",
+      "resolution": "Use the latest version of Java (17)",
+      "requiredTypes": [
+        "resource"
+      ],
+      "requiredLabels": [
+        "azurerm_app_service"
+      ],
+      "severity": "medium",
+      "matchSpec": {
+        "action": "or",
+        "predicateMatchSpec": [
+          {
+            "name": "site_config",
+            "action": "notPresent"
+          },
+          {
+            "name": "site_config",
+            "action": "isPresent",
+            "subMatch": {
+              "name": "java_version",
+              "action": "notPresent"
+            }
+          },
+          {
+            "name": "site_config",
+            "action": "isPresent",
+            "subMatch": {
+              "name": "java_version",
+              "action": "equals",
+              "value": "17"
+            }
+          }
+        ]
+      },
+      "errorMessage": "App Service is not using the latest version of Java (17)",
+      "relatedLinks": []
+    }
+  ]
+}

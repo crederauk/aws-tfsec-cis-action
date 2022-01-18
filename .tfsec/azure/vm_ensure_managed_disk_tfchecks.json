@@ -1,0 +1,35 @@
+{
+  "checks": [
+    {
+      "code": "cus-vm-managed-disk",
+      "description": "Custom check to ensure virtual machines are utilising managed disks",
+      "resolution": "Use managed disks for virtual machines",
+      "requiredTypes": [
+        "resource"
+      ],
+      "requiredLabels": [
+        "azurerm_virtual_machine"
+      ],
+      "severity": "medium",
+      "matchSpec": {
+        "name": "storage_os_disk",
+        "action": "isPresent",
+        "subMatch": {
+          "action": "or",
+          "predicateMatchSpec": [
+            {
+              "name": "managed_disk_id",
+              "action": "isPresent"
+            },
+            {
+              "name": "managed_disk_type",
+              "action": "isPresent"
+            }
+          ]
+        }
+      },
+      "errorMessage": "The virtual machine does not utilise a managed disk",
+      "relatedLinks": []
+    }
+  ]
+}

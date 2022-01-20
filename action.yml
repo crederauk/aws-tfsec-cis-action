@@ -5,6 +5,10 @@ inputs:
     description: 'Relative path to the terraform code directory'
     required: false
     default: 'terraform'
+  ignore-fail:
+    description: 'Return 0 exit code no matter if checks pass or not ("true"/"false")'
+    required: false
+    default: 'false'
 outputs:
   tfsec-result:
     description: "tfsec output"
@@ -18,22 +22,18 @@ runs:
       shell: bash
     - run: mkdir ${{ github.action_path }}/tfsec-run/.tfsec
       shell: bash
-    - run: ls ${{ github.action_path }}/.tfsec
-      shell: bash
-    - run: ls ${{ github.action_path }}/tfsec-run
-      shell: bash
-    - run: ls ${{ github.action_path }}/tfsec-run/.tfsec
-      shell: bash
     - run: cp ${{ github.action_path }}/.tfsec/**/*.json ${{ github.action_path }}/tfsec-run/.tfsec
-      shell: bash
-    - run: ls ${{ github.action_path }}/tfsec-run/.tfsec
       shell: bash
     - name: Run tfsec
       id: tfsec
       shell: bash
       working-directory: ${{ github.action_path }}/tfsec-run
       run: |
-        tfsec_result="$(docker run --rm -v "$(pwd):/src" aquasec/tfsec --soft-fail --no-colour /src)"
+        tfsec_result="$(if [ ${{ github.action_path }} = "true" ]; then \
+          docker run --rm -v "$(pwd):/src" aquasec/tfsec --soft-fail --no-colour /src \
+        else \
+          docker run --rm -v "$(pwd):/src" aquasec/tfsec --no-colour /src \
+        fi)"
         tfsec_result="${tfsec_result//'%'/'%25'}"
         tfsec_result="${tfsec_result//$'\n'/'%0A'}"
         tfsec_result="${tfsec_result//$'\r'/'%0D'}"

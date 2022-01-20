@@ -29,11 +29,7 @@ runs:
       shell: bash
       working-directory: ${{ github.action_path }}/tfsec-run
       run: |
-        tfsec_result="$(if [ ${{ inputs.ignore-fail }} = "true" ]; then
-          docker run --rm -v "$(pwd):/src" aquasec/tfsec --soft-fail --no-colour /src
-        else
-          docker run --rm -v "$(pwd):/src" aquasec/tfsec --no-colour /src
-        fi)"
+        tfsec_result="$(docker run --rm -v "$(pwd):/src" aquasec/tfsec --soft-fail --no-colour /src)"
         tfsec_result="${tfsec_result//'%'/'%25'}"
         tfsec_result="${tfsec_result//$'\n'/'%0A'}"
         tfsec_result="${tfsec_result//$'\r'/'%0D'}"
@@ -42,5 +38,8 @@ runs:
         tfsec_result="${tfsec_result//'}'/'%7D'}"
         echo $tfsec_result
         echo "::set-output name=tfsec_result::$tfsec_result"
+    - name: exit code
+      shell: bash
+      run: [[ ${{ steps.tfsec.outputs.tfsec_result }} != *"No problems detected\!" ]] && [ ${{ inputs.terraform-directory }} != 'true' ] && exit 1
     - run: echo goodbye :\)
       shell: bash

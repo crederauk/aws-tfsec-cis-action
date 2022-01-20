@@ -29,10 +29,10 @@ runs:
       shell: bash
       working-directory: ${{ github.action_path }}/tfsec-run
       run: |
-        tfsec_result="$(if [ ${{ inputs.ignore-fail }} = "true" ]; then \
-          docker run --rm -v "$(pwd):/src" aquasec/tfsec --soft-fail --no-colour /src \
-        else \
-          docker run --rm -v "$(pwd):/src" aquasec/tfsec --no-colour /src \
+        tfsec_result="$(if [ ${{ inputs.ignore-fail }} = "true" ]; then
+          docker run --rm -v "$(pwd):/src" aquasec/tfsec --soft-fail --no-colour /src
+        else
+          docker run --rm -v "$(pwd):/src" aquasec/tfsec --no-colour /src
         fi)"
         tfsec_result="${tfsec_result//'%'/'%25'}"
         tfsec_result="${tfsec_result//$'\n'/'%0A'}"

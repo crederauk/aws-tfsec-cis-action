@@ -37,11 +37,13 @@ runs:
         tfsec_result="${tfsec_result//'{'/'%7B'}"
         tfsec_result="${tfsec_result//'}'/'%7D'}"
         echo "::set-output name=tfsec_result::$tfsec_result"
+    - run: |
         echo <<-END
         ${{ steps.tfsec.outputs.tfsec_result }}
         END
         if [[ $tfsec_result == *"." ]] && [[ ${{ inputs.ignore-fail }} != 'true' ]]; then
           exit 1
         fi
+      shell: bash
     - run: echo goodbye :\)
       shell: bash

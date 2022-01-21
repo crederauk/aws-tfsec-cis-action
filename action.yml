@@ -30,8 +30,7 @@ runs:
       working-directory: ${{ github.action_path }}/tfsec-run
       run: |
         tfsec_result="$(docker run --rm -v "$(pwd):/src" aquasec/tfsec --soft-fail --no-colour /src)"
-        echo <<-END
-        ${tfsec_result}
+        echo <<-END $tfsec_result
         END
         tfsec_result="${tfsec_result//'%'/'%25'}"
         tfsec_result="${tfsec_result//$'\n'/'%0A'}"

@@ -30,13 +30,13 @@ runs:
       working-directory: ${{ github.action_path }}/tfsec-run
       run: |
         tfsec_result="$(docker run --rm -v "$(pwd):/src" aquasec/tfsec --soft-fail --no-colour /src)"
+        echo `$tfsec_result`
         tfsec_result="${tfsec_result//'%'/'%25'}"
         tfsec_result="${tfsec_result//$'\n'/'%0A'}"
         tfsec_result="${tfsec_result//$'\r'/'%0D'}"
         tfsec_result="${tfsec_result//'`'/'%60'}"
         tfsec_result="${tfsec_result//'{'/'%7B'}"
         tfsec_result="${tfsec_result//'}'/'%7D'}"
-        echo $tfsec_result
         echo "::set-output name=tfsec_result::$tfsec_result"
         if [[ $tfsec_result == *"." ]] && [[ ${{ inputs.ignore-fail }} != 'true' ]]; then
           exit 1

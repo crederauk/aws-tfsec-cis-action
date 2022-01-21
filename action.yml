@@ -40,6 +40,7 @@ runs:
         echo "::set-output name=tfsec_result::$tfsec_result"
     - name: exit code
       shell: bash
-      run: [[ ${{ steps.tfsec.outputs.tfsec_result }} != *"No problems detected\!" ]] && [ ${{ inputs.terraform-directory }} != 'true' ] && exit 1
+      run: |
+        [[ ${{ steps.tfsec.outputs.tfsec_result }} != *"No problems detected\!" ]] && [ ${{ inputs.terraform-directory }} != 'true' ] && exit 1
     - run: echo goodbye :\)
       shell: bash

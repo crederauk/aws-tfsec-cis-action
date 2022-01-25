@@ -29,7 +29,7 @@ runs:
       shell: bash
       working-directory: ${{ github.action_path }}/tfsec-run
       run: |
-        tfsec_result="$(docker run --rm -v "$(pwd):/src" aquasec/tfsec --soft-fail --no-colour /src)"
+        tfsec_result="$(docker run --rm -v "$(pwd):/src" aquasec/tfsec:v0.63 --soft-fail --no-colour /src)"
         cat <<EOF
         $tfsec_result
         EOF

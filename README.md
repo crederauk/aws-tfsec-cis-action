@@ -4,22 +4,18 @@ A custom GitHub Actions composite action that takes in directory of Terraform co
 
 ## Input
 - `terraform-directory`: (optional) the directory to look for Terraform code to scan, relative to the working directory this action is run in, leave empty to scan current directory, defaults to `terraform`
+- `ignore-fail`: (optional, `true` or `false`) produce exit code 0 no matter if the tfsec check passes or not, defaults to `false`
 
 ## Output
-- `tfsec-result`: a multi-line string containing the scan result of tfsec, with the custom CIS Benchmark policy applied
+- `tfsec-result`: a multi-line string containing the scan result of tfsec, with the custom CIS Benchmark and internal policy applied
 
 ## Example
 In your GitHub Actions pipeline, add the following steps:
 ```yaml
-- id: aws-tfsec-cis-action
-  uses: crederauk/aws-tfsec-cis-action@v5
+- id: tfsec-custom-action
+  uses: crederauk/tfsec-custom-action@v25
   with:
     terraform-directory: 'terraform'
-
-- run: |
-    echo <<-END
-    ${{ steps.aws-tfsec-cis-action.outputs.tfsec-result }}
-    END
 ```
 
 ## Contributing

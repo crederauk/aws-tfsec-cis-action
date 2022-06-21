@@ -18,8 +18,8 @@ resource "azurerm_virtual_machine" "test2" {
   resource_group_name   = ""
   vm_size               = ""
   storage_os_disk {
-    create_option = ""
-    name          = ""
+    create_option     = ""
+    name              = ""
     managed_disk_type = ""
   }
 }

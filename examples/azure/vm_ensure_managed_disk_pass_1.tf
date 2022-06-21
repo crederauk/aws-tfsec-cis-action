@@ -1,3 +1,4 @@
+#tfsec:ignore:cus-azure-resource-tags
 resource "azurerm_virtual_machine" "test1" {
   location              = ""
   name                  = ""
@@ -11,6 +12,7 @@ resource "azurerm_virtual_machine" "test1" {
   }
 }
 
+#tfsec:ignore:cus-azure-resource-tags
 resource "azurerm_virtual_machine" "test2" {
   location              = ""
   name                  = ""

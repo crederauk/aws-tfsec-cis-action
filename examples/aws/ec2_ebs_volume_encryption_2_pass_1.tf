@@ -1,3 +1,4 @@
+#tfsec:ignore:cus-aws-resource-tags
 data "aws_ami" "ubuntu" {
   most_recent = true
 
@@ -14,6 +15,7 @@ data "aws_ami" "ubuntu" {
   owners = ["099720109477"] # Canonical
 }
 
+#tfsec:ignore:cus-aws-resource-tags
 resource "aws_instance" "ec2" {
   instance_type = "t2.nano"
   ami           = data.aws_ami.ubuntu.id

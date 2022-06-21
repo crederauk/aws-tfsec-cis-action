@@ -1,3 +1,4 @@
+#tfsec:ignore:cus-azure-resource-tags
 resource "azurerm_virtual_machine" "test" {
   location              = ""
   name                  = ""

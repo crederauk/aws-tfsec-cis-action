@@ -103,17 +103,17 @@
             {
               "name": "labels",
               "action": "contains",
-              "value": "CreatedBy"
+              "value": "createdby"
             },
             {
               "name": "labels",
               "action": "contains",
-              "value": "Environment"
+              "value": "environment"
             },
             {
               "name": "labels",
               "action": "contains",
-              "value": "Project"
+              "value": "project"
             }
           ]
         },
